@@ -1,0 +1,19 @@
+
+export const ErrorType = {
+    INCORRECT_TYPE: "INCORRECT_TYPE",
+    INCORRECT_FORMAT: "INCORRECT_FORMAT",
+
+    UNKNOWN_FIELD: "UNKNOWN_FIELD",
+
+    NO_MATCH: "NO_MATCH",
+
+    VALUE_BELOW: "VALUE_BELOW",
+    VALUE_ABOVE: "VALUE_ABOVE",
+    VALUE_BELOW_EXCLUSIVE: "VALUE_BELOW_EXCLUSIVE",
+    VALUE_ABOVE_EXCLUSIVE: "VALUE_ABOVE_EXCLUSIVE",
+    VALUE_SHORT: "VALUE_SHORT",
+    VALUE_LONG: "VALUE_LONG",
+} as const;
+
+export type ErrorType = typeof ErrorType;
+export type ErrorValue = ErrorType[keyof ErrorType];

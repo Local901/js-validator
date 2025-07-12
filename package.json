@@ -1,0 +1,28 @@
+{
+  "name": "@local901/validator",
+  "version": "0.0.0",
+  "description": "Type validator for javascript and typescript",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Local901/js-validator.git"
+  },
+  "keywords": [
+    "validate",
+    "validator"
+  ],
+  "author": "Local901",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Local901/js-validator/issues"
+  },
+  "homepage": "https://github.com/Local901/js-validator#readme",
+  "devDependencies": {
+    "@types/node": "^24.0.12",
+    "typescript": "^5.8.3"
+  }
+}
