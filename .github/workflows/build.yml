@@ -1,0 +1,16 @@
+name: Build package
+run-name: Build package
+on: [push]
+jobs:
+  Build-Package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "22"
+      - run: "npm run build"
+      - run: "cp package.json dist/package.json"
+      - run: "cd dist"
+      - run: "echo \"//registry.npmjs.org/:_authToken=${{ secrets.NPM_PUBLISH_KEY }}\" > ~/.npmrc"
+      - run: "npm publish --dry-run --access public"
