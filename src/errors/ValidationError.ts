@@ -20,5 +20,3 @@ export class ValidationError<
         this.fields = fields;
     }
 }
-
-type T = ReadonlyArray<any> extends any[] ? true : false;
