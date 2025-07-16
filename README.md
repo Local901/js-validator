@@ -1,6 +1,6 @@
 # js-validator
 
-Validator for javascript and typescript. Do you have an object with uncertain contents. USe a validator to make sure what you have.
+Validator for javascript and typescript. Do you have an object with uncertain contents. Use a validator to make sure what you have.
 
 Quick start:
 ```shell

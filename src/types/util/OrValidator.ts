@@ -2,12 +2,12 @@ import { ErrorType } from "../../errors/ErrorType";
 import type { ValidationError } from "../../errors/ValidationError";
 import { Validator } from "../../Validator";
 
-export type AnyOfValidators<T> = ReadonlyArray<T extends unknown ? Validator<T> : never>;
+export type OrValidators<T> = ReadonlyArray<T extends unknown ? Validator<T> : never>;
 
-export class AnyOfValidator<T> extends Validator<T> {
+export class OrValidator<T> extends Validator<T> {
     public override type = "anyof";
 
-    public constructor(public readonly validators: AnyOfValidators<T>) {
+    public constructor(public readonly validators: OrValidators<T>) {
         super();
     }
 

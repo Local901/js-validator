@@ -6,19 +6,27 @@ import { OptionalValidator } from "./types/util/OptionalValidator";
 import { stringValidator, type StringValidationOptions } from "./types/string/StringValidator";
 import { Validator } from "./Validator";
 import { AnyValidator } from "./types/util/AnyValidator";
-import { AnyOfValidator, type AnyOfValidators } from "./types/util/AnyOfValidator";
+import { OrValidator, type OrValidators } from "./types/util/OrValidator";
+import { ArrayValidator } from "./types/object/ArrayValidator";
+import { EnumValidator, type EnumLike } from "./types/object/EnumValidator";
 
-export namespace v {
-    export const boolean = () => new BooleanValidator();
+export { Validator } from "./Validator";
+export { ErrorType, type ErrorValue } from "./errors/ErrorType";
+export { ValidationError, type ErrorFields } from "./errors/ValidationError";
+
+export class v {
+    public static boolean = () => new BooleanValidator();
     
-    export const int = (options?: IntValidationOptions) => new IntValidator(options);
-    export const number = (options?: NumberValidationOptions) => new NumberValidator(options);
+    public static int = (options?: IntValidationOptions) => new IntValidator(options);
+    public static number = (options?: NumberValidationOptions) => new NumberValidator(options);
 
-    export const object = <T extends object>(fields: FieldValidators<T>) => new ObjectValidator(fields);
+    public static array = <T>(item: Validator<T>) => new ArrayValidator(item);
+    public static enum = <T extends EnumLike>(enumInstance: T) => new EnumValidator(enumInstance);
+    public static object = <T extends object>(fields: FieldValidators<T>) => new ObjectValidator(fields);
 
-    export const string = (options?: StringValidationOptions) => new stringValidator(options);
+    public static string = (options?: StringValidationOptions) => new stringValidator(options);
 
-    export const anyOf = <T>(validators: AnyOfValidators<T>) => new AnyOfValidator(validators);
-    export const any = <T>() => new AnyValidator<T>();
-    export const optional = <T>(val: Validator<Exclude<T, undefined | null>>) => new OptionalValidator(val);
+    public static any = <T>() => new AnyValidator<T>();
+    public static optional = <T>(val: Validator<Exclude<T, undefined | null>>) => new OptionalValidator(val);
+    public static or = <T>(validators: OrValidators<T>) => new OrValidator(validators);
 }

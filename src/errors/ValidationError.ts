@@ -1,7 +1,9 @@
 import type { ErrorValue } from "./ErrorType";
 
 export type ErrorFields<T> = (T extends object
-    ? { [K in keyof T]: ValidationError<T[K]> | undefined }
+    ? T extends ReadonlyArray<infer ITEM>
+        ? Record<number, ValidationError<ITEM> | undefined>
+        : { [K in keyof T]: ValidationError<T[K]> | undefined }
     : never) | Record<number, ValidationError<T>>;
 
 export class ValidationError<
@@ -18,3 +20,5 @@ export class ValidationError<
         this.fields = fields;
     }
 }
+
+type T = ReadonlyArray<any> extends any[] ? true : false;
