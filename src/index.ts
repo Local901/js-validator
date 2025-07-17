@@ -7,8 +7,9 @@ import { stringValidator, type StringValidationOptions } from "./types/string/St
 import { Validator } from "./Validator";
 import { AnyValidator } from "./types/util/AnyValidator";
 import { OrValidator, type OrValidators } from "./types/util/OrValidator";
-import { ArrayValidator } from "./types/object/ArrayValidator";
+import { ArrayValidator, type ArrayValidatorOptions } from "./types/object/ArrayValidator";
 import { EnumValidator, type EnumLike } from "./types/object/EnumValidator";
+import { TupleValidator, type TupleValidators } from "./types/object/TupleValidator";
 
 export { Validator } from "./Validator";
 export { ErrorType, type ErrorValue } from "./errors/ErrorType";
@@ -20,9 +21,10 @@ export class v {
     public static int = (options?: IntValidationOptions) => new IntValidator(options);
     public static number = (options?: NumberValidationOptions) => new NumberValidator(options);
 
-    public static array = <T>(item: Validator<T>) => new ArrayValidator(item);
+    public static array = <T>(item: Validator<T>, options?: ArrayValidatorOptions) => new ArrayValidator(item, options);
     public static enum = <T extends EnumLike>(enumInstance: T) => new EnumValidator(enumInstance);
     public static object = <T extends object>(fields: FieldValidators<T>) => new ObjectValidator(fields);
+    public static tuple = <T extends [...unknown[]]>(validators: TupleValidators<T>) => new TupleValidator(validators);
 
     public static string = (options?: StringValidationOptions) => new stringValidator(options);
 
