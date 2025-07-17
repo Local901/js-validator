@@ -13,7 +13,7 @@ export interface StringValidationOptions {
     enum?: string[];
 }
 
-export class stringValidator extends Validator<string> {
+export class stringValidator<T extends string = string> extends Validator<T> {
     public override type = "string";
 
     public constructor(private readonly options: StringValidationOptions = {}) {
@@ -21,7 +21,7 @@ export class stringValidator extends Validator<string> {
     }
 
     /** @inheritdoc */
-    public override validateReturn(input: unknown): ValidationError<string> | null {
+    public override validateReturn(input: unknown): ValidationError<T> | null {
         // Type check.
         if (typeof input !== "string") {
             return this.createError(ErrorType.INCORRECT_TYPE, "Has to be a string.");

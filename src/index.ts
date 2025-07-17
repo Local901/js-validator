@@ -26,7 +26,7 @@ export class v {
     public static object = <T extends object>(fields: FieldValidators<T>) => new ObjectValidator(fields);
     public static tuple = <T extends [...unknown[]]>(validators: TupleValidators<T>) => new TupleValidator(validators);
 
-    public static string = (options?: StringValidationOptions) => new stringValidator(options);
+    public static string = <T extends string = string>(options?: StringValidationOptions) => new stringValidator<T>(options);
 
     public static any = <T>() => new AnyValidator<T>();
     public static optional = <T>(val: Validator<Exclude<T, undefined | null>>) => new OptionalValidator(val);
