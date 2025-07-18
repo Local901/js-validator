@@ -4,7 +4,7 @@ type TupleError<T extends ReadonlyArray<unknown>> = T extends [infer ITEM, ...in
     ? [ValidationError<ITEM> | null, ...ARR extends never[] ? [] : TupleError<ARR>]
     : never;
 
-type ArrayError<T extends ReadonlyArray<unknown>> = T extends [infer ITEM, ...infer ARR]
+type ArrayError<T extends ReadonlyArray<unknown>> = T extends [infer _ITEM, ...infer _ARR]
     ? TupleError<T>
     : T extends ReadonlyArray<infer ARR> ? Record<number, ValidationError<ARR> | null> : never;
 
