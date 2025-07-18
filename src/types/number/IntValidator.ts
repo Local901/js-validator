@@ -25,12 +25,12 @@ export class IntValidator extends Validator<number> {
 
         // Minimum value check
         if (this.options.min !== undefined && input < this.options.min) {
-            return this.createError(ErrorType.VALUE_BELOW, `Has to be a minimum value of ${this.options.min}`)
+            return this.createError(ErrorType.VALUE_BELOW, `Has to be a minimum value of ${this.options.min}.`)
         }
 
         // Maximum value check
         if (this.options.max !== undefined && this.options.max < input) {
-            return this.createError(ErrorType.VALUE_ABOVE, `Has to be a maximum value of ${this.options.max}`)
+            return this.createError(ErrorType.VALUE_ABOVE, `Has to be a maximum value of ${this.options.max}.`)
         }
         return null;
     }

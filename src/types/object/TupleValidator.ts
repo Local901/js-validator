@@ -25,7 +25,7 @@ export class TupleValidator<T extends [...unknown[]]> extends Validator<T> {
                 input.length < this.validators.length
                     ? ErrorType.VALUE_SHORT
                     : ErrorType.VALUE_LONG,
-                `Has to have length of ${this.validators.length}`,
+                `Has to have length of ${this.validators.length}.`,
             );
         }
 

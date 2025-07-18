@@ -10,6 +10,7 @@ import { OrValidator, type OrValidators } from "./types/util/OrValidator";
 import { ArrayValidator, type ArrayValidatorOptions } from "./types/object/ArrayValidator";
 import { EnumValidator, type EnumLike } from "./types/object/EnumValidator";
 import { TupleValidator, type TupleValidators } from "./types/object/TupleValidator";
+import { InstanceofValidator, type ConstructorType, type InstanceofValidationOptions } from "./types/util/InstanceofValidator";
 
 export { Validator } from "./Validator";
 export { ErrorType, type ErrorValue } from "./errors/ErrorType";
@@ -29,6 +30,7 @@ export class v {
     public static string = <T extends string = string>(options?: StringValidationOptions) => new stringValidator<T>(options);
 
     public static any = <T>() => new AnyValidator<T>();
+    public static instanceof = <T>(instance: ConstructorType<T>, options: InstanceofValidationOptions<T>) => new InstanceofValidator(instance, options);
     public static optional = <T>(val: Validator<Exclude<T, undefined | null>>) => new OptionalValidator(val);
     public static or = <T>(validators: OrValidators<T>) => new OrValidator(validators);
 }

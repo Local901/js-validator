@@ -39,7 +39,7 @@ export class ObjectValidator<T extends object> extends Validator<T> {
             if (extraKeys.length) {
                 return this.createError(
                     ErrorType.UNKNOWN_FIELD,
-                    `No extra keys allowed. Found [${extraKeys.join(", ")}]`,
+                    `No extra keys allowed. Found [${extraKeys.join(", ")}].`,
                     hasError ? fields : undefined,
                 );
             }

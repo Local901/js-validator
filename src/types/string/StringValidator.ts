@@ -34,23 +34,23 @@ export class stringValidator<T extends string = string> extends Validator<T> {
             }
             return this.createError(
                 ErrorType.NO_MATCH,
-                `Has to match one of the known values [${this.options.enum.join(", ")}]`,
+                `Has to match one of the known values [${this.options.enum.join(", ")}].`,
             );
         }
 
         // Minimum length check.
         if (this.options.min !== undefined && input.length < this.options.min) {
-            return this.createError(ErrorType.VALUE_SHORT, `Has to have a minimum length of ${this.options.min}`);
+            return this.createError(ErrorType.VALUE_SHORT, `Has to have a minimum length of ${this.options.min}.`);
         }
 
         // Maximum length check.
         if (this.options.max !== undefined && this.options.max < input.length) {
-            return this.createError(ErrorType.VALUE_LONG, `Has to have a maximum length of ${this.options.max}`);
+            return this.createError(ErrorType.VALUE_LONG, `Has to have a maximum length of ${this.options.max}.`);
         }
 
         // Regex format check.
         if (this.options.regex && !this.options.regex.test(input)) {
-            return this.createError(ErrorType.INCORRECT_FORMAT, `Has to match format '${this.options.regex.source}'`);
+            return this.createError(ErrorType.INCORRECT_FORMAT, `Has to match format '${this.options.regex.source}'.`);
         }
         return null;
     }

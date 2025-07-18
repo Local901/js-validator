@@ -31,7 +31,7 @@ export class NumberValidator extends Validator<number> {
         if (this.options.min !== undefined && (this.options.minExclusive ? input <= this.options.min : input < this.options.min)) {
             return this.createError(
                 this.options.minExclusive ? ErrorType.VALUE_BELOW_EXCLUSIVE : ErrorType.VALUE_BELOW,
-                `Has to be a minimum value of ${this.options.min}${this.options.minExclusive ? " (exclusive)" : ""}`,
+                `Has to be a minimum value of ${this.options.min}${this.options.minExclusive ? " (exclusive)" : ""}.`,
             );
         }
 
@@ -39,7 +39,7 @@ export class NumberValidator extends Validator<number> {
         if (this.options.max !== undefined && (this.options.maxExclusive ? this.options.max <= input : this.options.max < input)) {
             return this.createError(
                 this.options.maxExclusive ? ErrorType.VALUE_ABOVE_EXCLUSIVE : ErrorType.VALUE_ABOVE,
-                `Has to be a maximum value of ${this.options.max}${this.options.minExclusive ? " (exclusive)" : ""}`,
+                `Has to be a maximum value of ${this.options.max}${this.options.minExclusive ? " (exclusive)" : ""}.`,
             );
         }
         return null;

@@ -1,14 +1,20 @@
 import type { ErrorValue } from "./ErrorType";
 
-type ArrayError<T extends ReadonlyArray<unknown>> = T extends [infer ITEM, ...infer ARR]
-    ? [ValidationError<ITEM> | null, ...ARR extends never[] ? [] : ArrayError<ARR>]
-    : T extends ReadonlyArray<infer ARR> ? Array<ValidationError<ARR> | null> : never;
+type TupleError<T extends ReadonlyArray<unknown>> = T extends [infer ITEM, ...infer ARR]
+    ? [ValidationError<ITEM> | null, ...ARR extends never[] ? [] : TupleError<ARR>]
+    : never;
 
-export type ErrorFields<T> = ((T extends object
-    ? T extends readonly unknown[]
-        ? ArrayError<T>
-        : { [K in keyof T]: ValidationError<T[K]> | undefined }
-    : never) | Record<number, ValidationError<T>>);
+type ArrayError<T extends ReadonlyArray<unknown>> = T extends [infer ITEM, ...infer ARR]
+    ? TupleError<T>
+    : T extends ReadonlyArray<infer ARR> ? Record<number, ValidationError<ARR> | null> : never;
+
+export type ErrorFields<T> = (
+    T extends object
+        ? T extends readonly unknown[]
+            ? ArrayError<T>
+            : { [K in keyof T]: ValidationError<T[K]> | undefined }
+        : never
+) | Record<number, ValidationError<T>>;
 
 export class ValidationError<
     T extends unknown = unknown

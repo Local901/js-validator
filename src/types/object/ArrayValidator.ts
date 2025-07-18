@@ -28,23 +28,23 @@ export class ArrayValidator<T> extends Validator<T[]> {
 
         // Check minimum length
         if (this.options.min !== undefined && input.length < this.options.min) {
-            return this.createError(ErrorType.VALUE_SHORT, `Has to have a minimum length of ${this.options.min}`)
+            return this.createError(ErrorType.VALUE_SHORT, `Has to have a minimum length of ${this.options.min}.`)
         }
 
         // Check maximum length
         if (this.options.max !== undefined && input.length > this.options.max) {
-            return this.createError(ErrorType.VALUE_SHORT, `Has to have a maximum length of ${this.options.max}`)
+            return this.createError(ErrorType.VALUE_SHORT, `Has to have a maximum length of ${this.options.max}.`)
         }
         
         // Check item type
         let hasError = false;
-        const fields: ErrorFields<T[]> = input.map((item) => {
+        const fields: ErrorFields<T[]> = Object.fromEntries(input.map((item, index) => {
             const result = this.item.validateReturn(item);
             if (result !== null) {
                 hasError = true;
             }
-            return result;
-        });
+            return [index, result];
+        }).filter((entry) => !!entry[1]));
         if (hasError) {
             return this.createError(ErrorType.INCORRECT_TYPE, "One or more items are incorrect.", fields);
         }
