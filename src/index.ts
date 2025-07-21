@@ -23,7 +23,7 @@ export class v {
     public static int = (options?: IntValidationOptions) => new IntValidator(options);
     public static number = (options?: NumberValidationOptions) => new NumberValidator(options);
 
-    public static array = <T>(item: Validator<T>, options?: ArrayValidatorOptions) => new ArrayValidator(item, options);
+    public static array = <T>(item: Validator<T>, options?: ArrayValidatorOptions) => new ArrayValidator<T>(item, options);
     public static enum = <T extends EnumLike>(enumInstance: T) => new EnumValidator(enumInstance);
     public static object = <T extends object>(fields: FieldValidators<T>) => new ObjectValidator(fields);
     public static record = <T extends RecordType>(field: RecordTypeValidator<T>) => new RecordValidator(field);
