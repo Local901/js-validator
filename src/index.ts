@@ -23,7 +23,7 @@ export class v {
     public static int = (options?: IntValidationOptions) => new IntValidator(options);
     public static number = (options?: NumberValidationOptions) => new NumberValidator(options);
 
-    public static array = <T>(item: Validator<T>, options?: ArrayValidatorOptions) => new ArrayValidator<T>(item, options);
+    public static array = <T>(item: Validator<T>, options?: ArrayValidatorOptions) => new ArrayValidator<T>(item, options) as Validator<T[]>;
     public static enum = <T extends EnumLike>(enumInstance: T) => new EnumValidator(enumInstance);
     public static object = <T extends object>(fields: FieldValidators<T>) => new ObjectValidator(fields);
     public static record = <T extends RecordType>(field: RecordTypeValidator<T>) => new RecordValidator(field);
@@ -32,7 +32,7 @@ export class v {
     public static string = <T extends string = string>(options?: StringValidationOptions) => new stringValidator<T>(options);
 
     public static any = <T>() => new AnyValidator<T>();
-    public static instanceof = <T>(instance: ConstructorType<T>, options: InstanceofValidationOptions<T>) => new InstanceofValidator(instance, options);
+    public static instanceof = <T extends undefined | null>(instance: ConstructorType<T>, options: InstanceofValidationOptions<T>) => new InstanceofValidator(instance, options);
     public static optional = <T>(val: Validator<Exclude<T, undefined | null>>) => new OptionalValidator(val);
     public static or = <T>(validators: OrValidators<T>) => new OrValidator(validators);
 }
