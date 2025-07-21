@@ -18,21 +18,55 @@ export { ErrorType, type ErrorValue } from "./errors/ErrorType";
 export { ValidationError, type ErrorFields } from "./errors/ValidationError";
 
 export class v {
-    public static boolean = () => new BooleanValidator();
+    // Boolean
+    public static boolean(): Validator<boolean> {
+        return new BooleanValidator();
+    }
     
-    public static int = (options?: IntValidationOptions) => new IntValidator(options);
-    public static number = (options?: NumberValidationOptions) => new NumberValidator(options);
+    // Numbers
+    public static int(options?: IntValidationOptions): Validator<number> {
+        return new IntValidator(options);
+    }
+    public static number(options?: NumberValidationOptions): Validator<number> {
+        return new NumberValidator(options);
+    }
 
-    public static array = <T>(item: Validator<T>, options?: ArrayValidatorOptions) => new ArrayValidator<T>(item, options) as Validator<T[]>;
-    public static enum = <T extends EnumLike>(enumInstance: T) => new EnumValidator(enumInstance);
-    public static object = <T extends object>(fields: FieldValidators<T>) => new ObjectValidator(fields);
-    public static record = <T extends RecordType>(field: RecordTypeValidator<T>) => new RecordValidator(field);
-    public static tuple = <T extends [...unknown[]]>(validators: TupleValidators<T>) => new TupleValidator(validators);
+    // Objects
+    public static array<T>(item: Validator<T>, options?: ArrayValidatorOptions): Validator<T[]> {
+        return new ArrayValidator<T>(item, options);
+    }
+    public static enum<T extends EnumLike>(enumInstance: T): Validator<T[keyof T]> {
+        return new EnumValidator(enumInstance);
+    }
+    public static object<T extends object>(fields: FieldValidators<T>): Validator<T> {
+        return new ObjectValidator(fields);
+    }
+    public static record<T extends RecordType>(field: RecordTypeValidator<T>): Validator<T> {
+        return new RecordValidator(field);
+    }
+    public static tuple<T extends [...unknown[]]>(validators: TupleValidators<T>): Validator<T> {
+        return new TupleValidator(validators);
+    }
 
-    public static string = <T extends string = string>(options?: StringValidationOptions) => new stringValidator<T>(options);
+    // Strings
+    public static string<T extends string = string>(options?: StringValidationOptions): Validator<T> {
+        return new stringValidator<T>(options);
+    }
 
-    public static any = <T>() => new AnyValidator<T>();
-    public static instanceof = <T extends undefined | null>(instance: ConstructorType<T>, options: InstanceofValidationOptions<T>) => new InstanceofValidator(instance, options);
-    public static optional = <T>(val: Validator<Exclude<T, undefined | null>>) => new OptionalValidator(val);
-    public static or = <T>(validators: OrValidators<T>) => new OrValidator(validators);
+    // Utility
+    public static any<T>(): Validator<T> {
+        return new AnyValidator<T>();
+    }
+    public static instanceof<T>(instance: ConstructorType<T>, options: InstanceofValidationOptions<T>): Validator<T> {
+        return new InstanceofValidator(instance, options);
+    }
+    public static optional<T>(val: Validator<Exclude<T, undefined | null>>, type?: undefined): Validator<T | undefined | null>;
+    public static optional<T>(val: Validator<Exclude<T, undefined | null>>, type: "undefined"): Validator<T | undefined>;
+    public static optional<T>(val: Validator<Exclude<T, undefined | null>>, type: "null"): Validator<T | null>;
+    public static optional<T>(val: Validator<Exclude<T, undefined | null>>, type?: "undefined" | "null"): Validator<T | undefined | null> {
+        return new OptionalValidator(val, { only: type });
+    }
+    public static or<T>(validators: OrValidators<T>): Validator<T> {
+        return new OrValidator(validators);
+    }
 }
