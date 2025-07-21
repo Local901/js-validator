@@ -11,6 +11,7 @@ import { ArrayValidator, type ArrayValidatorOptions } from "./types/object/Array
 import { EnumValidator, type EnumLike } from "./types/object/EnumValidator";
 import { TupleValidator, type TupleValidators } from "./types/object/TupleValidator";
 import { InstanceofValidator, type ConstructorType, type InstanceofValidationOptions } from "./types/util/InstanceofValidator";
+import { RecordValidator, type RecordType, type RecordTypeValidator } from "./types/object/RecordValidator";
 
 export { Validator } from "./Validator";
 export { ErrorType, type ErrorValue } from "./errors/ErrorType";
@@ -25,6 +26,7 @@ export class v {
     public static array = <T>(item: Validator<T>, options?: ArrayValidatorOptions) => new ArrayValidator(item, options);
     public static enum = <T extends EnumLike>(enumInstance: T) => new EnumValidator(enumInstance);
     public static object = <T extends object>(fields: FieldValidators<T>) => new ObjectValidator(fields);
+    public static record = <T extends RecordType>(field: RecordTypeValidator<T>) => new RecordValidator(field);
     public static tuple = <T extends [...unknown[]]>(validators: TupleValidators<T>) => new TupleValidator(validators);
 
     public static string = <T extends string = string>(options?: StringValidationOptions) => new stringValidator<T>(options);

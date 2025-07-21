@@ -47,5 +47,4 @@ export class ObjectValidator<T extends object> extends Validator<T> {
         }
         return null;
     }
-    
 }
