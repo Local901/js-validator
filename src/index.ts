@@ -57,7 +57,7 @@ export class v {
     public static any<T>(): Validator<T> {
         return new AnyValidator<T>();
     }
-    public static instanceof<T>(instance: ConstructorType<T>, options: InstanceofValidationOptions<T>): Validator<T> {
+    public static instanceof<T>(instance: ConstructorType<T>, options?: InstanceofValidationOptions<T>): Validator<T> {
         return new InstanceofValidator(instance, options);
     }
     public static optional<T>(val: Validator<Exclude<T, undefined | null>>, type?: undefined): Validator<T | undefined | null>;
