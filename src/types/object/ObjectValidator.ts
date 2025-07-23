@@ -23,7 +23,7 @@ export class ObjectValidator<T extends object> extends Validator<T> {
         // Check for excess keys.
         const fieldKeys = Object.keys(this.fields);
         const inputKeys = Object.keys(input);
-        const extraKeys = fieldKeys.filter((k) => !inputKeys.includes(k));
+        const extraKeys = inputKeys.filter((k) => !fieldKeys.includes(k));
     
         // Check field types
         let hasError = false;
