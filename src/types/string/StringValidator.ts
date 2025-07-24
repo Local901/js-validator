@@ -29,7 +29,7 @@ export class stringValidator<T extends string = string> extends Validator<T> {
 
         // Enum Check.
         if (this.options.enum) {
-            if (!this.options.enum.includes(input)) {
+            if (this.options.enum.includes(input)) {
                 return null;
             }
             return this.createError(
