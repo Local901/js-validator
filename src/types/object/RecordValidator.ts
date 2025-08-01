@@ -17,7 +17,7 @@ export class RecordValidator<T extends Record<string | number | symbol, unknown>
 
     public override validateReturn(input: unknown): ValidationError<T> | null {
         // Check type
-        if (typeof input !== "object" || input === null) {
+        if (typeof input !== "object" || input === null || Array.isArray(input)) {
             return this.createError(ErrorType.INCORRECT_TYPE, "Has to be an record.");
         }
 

@@ -40,7 +40,9 @@ export class ObjectValidator<T extends object> extends Validator<T> {
                 return this.createError(
                     ErrorType.UNKNOWN_FIELD,
                     `No extra keys allowed. Found [${extraKeys.join(", ")}].`,
-                    hasError ? fields : undefined,
+                    hasError
+                        ? fields
+                        : undefined,
                 );
             }
             return this.createError(ErrorType.INCORRECT_TYPE, "One or more fields are incorrect.", fields);
