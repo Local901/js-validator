@@ -3,7 +3,7 @@ import type { ErrorFields, ValidationError } from "../../errors/ValidationError"
 import { Validator } from "../../Validator";
 
 export type FieldValidators<T extends object> = {
-    [K in keyof T]: Validator<T[K]>;
+    [K in keyof T]-?: Validator<T[K]>;
 }
 
 export class ObjectValidator<T extends object> extends Validator<T> {

@@ -8,7 +8,7 @@ export interface StringValidationOptions {
     /** Maximum length of the string. */
     max?: number;
     /** The regex the value has to match. */
-    regex?: RegExp;
+    regex?: RegExp | string;
     /** Allowed values. (Will ignore all other options.) */
     enum?: string[];
 }
@@ -49,8 +49,12 @@ export class stringValidator<T extends string = string> extends Validator<T> {
         }
 
         // Regex format check.
-        if (this.options.regex && !this.options.regex.test(input)) {
-            return this.createError(ErrorType.INCORRECT_FORMAT, `Has to match format '${this.options.regex.source}'.`);
+        if (this.options.regex && input.match(this.options.regex)?.[0] !== input) {
+            return this.createError(ErrorType.INCORRECT_FORMAT, `Has to match format '${
+                typeof this.options.regex === "string"
+                    ? this.options.regex
+                    : this.options.regex.source
+                }'.`);
         }
         return null;
     }

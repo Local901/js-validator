@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "test": "test"
+    "test": "vitest run",
+    "test:cover": "vitest run --coverage",
+    "test:watch": "vitest"
   },
   "repository": {
     "type": "git",
@@ -23,6 +25,8 @@
   "homepage": "https://github.com/Local901/js-validator#readme",
   "devDependencies": {
     "@types/node": "^24.0.12",
-    "typescript": "^5.8.3"
+    "@vitest/coverage-v8": "^3.2.4",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
   }
 }

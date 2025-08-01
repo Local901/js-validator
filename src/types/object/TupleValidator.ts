@@ -4,7 +4,7 @@ import { Validator } from "../../Validator";
 
 export type TupleValidators<T extends [...unknown[]]> =  T extends [infer ITEM, ...infer ARR]
     ? [Validator<ITEM>, ...ARR extends never[] ? [] : TupleValidators<ARR>]
-    : T extends ReadonlyArray<infer ARR> ? Array<Validator<ARR>> : never;
+    : T extends ReadonlyArray<infer ARR> ? ReadonlyArray<Validator<ARR>> : never;
 
 export class TupleValidator<T extends [...unknown[]]> extends Validator<T> {
     public override type = "tuple";

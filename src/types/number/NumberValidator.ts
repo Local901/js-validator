@@ -23,7 +23,7 @@ export class NumberValidator extends Validator<number> {
     /** @inheritdoc */
     public override validateReturn(input: unknown): ValidationError<number> | null {
         // Type check.
-        if (typeof input !== "number") {
+        if (typeof input !== "number" || Number.isNaN(input)) {
             return this.createError(ErrorType.INCORRECT_TYPE, "Has to be a number.");
         }
 

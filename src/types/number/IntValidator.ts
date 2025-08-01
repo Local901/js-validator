@@ -19,7 +19,7 @@ export class IntValidator extends Validator<number> {
     /** @inheritdoc */
     public override validateReturn(input: unknown): ValidationError<number> | null {
         // Type check.
-        if (typeof input !== "number" || Math.floor(input) !== input) {
+        if (typeof input !== "number" || Number.isNaN(input) || Math.floor(input) !== input) {
             return this.createError(ErrorType.INCORRECT_TYPE, "Has to be a int.");
         }
 
