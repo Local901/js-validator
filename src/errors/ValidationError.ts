@@ -62,7 +62,7 @@ export class ValidationError<
 
         if (this.fields) {
             if (Array.isArray(this.fields)) {
-                fields = this.fields.map((error) => error?.toJson());
+                fields = this.fields.map((error) => error?.toJson() ?? null);
             } else {
                 fields = Object.fromEntries(Object.entries(this.fields).map(([key, error]) => [key, error.toJson()]));
             }
