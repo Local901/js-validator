@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { v } from "../../src";
+import { v } from "../../../src";
 
 describe("Tuple Validator [string, number]", () => {
     const validator = v.tuple([v.string(), v.number()]);

@@ -29,7 +29,7 @@ export class RecordValidator<T extends Record<string | number | symbol, unknown>
                 hasError = true;
             }
             return [key, result ?? undefined];
-        })) as ErrorFields<T>;
+        }).filter(([, error]) => !!error)) as ErrorFields<T>;
 
         if (hasError) {
             return this.createError(ErrorType.INCORRECT_TYPE, "One or more fields are incorrect.", fields);

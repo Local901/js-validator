@@ -18,7 +18,7 @@ export class EnumValidator<T extends EnumLike | unknown[]> extends Validator<T[k
     public override validateReturn(input: unknown): ValidationError<T[keyof T]> | null {
         // Check type
         if (!this.enumValues.includes(input)) {
-            return this.createError(ErrorType.INCORRECT_TYPE, "Has to be an object.");
+            return this.createError(ErrorType.INCORRECT_TYPE, "Has to be an enum.");
         }
 
         return null;

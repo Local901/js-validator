@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { v } from "../../src";
+import { v } from "../../../src";
 
 describe("Instanceof Validator", () => {
     it("Should validate Date", () => {

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { v } from "../../src";
+import { v } from "../../../src";
 
 describe("Or Validator [number, string]", () => {
     // TODO: find a way to have typescript auto find the type.

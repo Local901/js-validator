@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { v } from "../../src";
+import { v } from "../../../src";
 
 describe("Number Validator", () => {
     it.each([

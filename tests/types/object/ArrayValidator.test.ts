@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { v } from "../../src";
+import { v } from "../../../src";
 
 describe("Array Validator string[]", () => {
     const validator = v.array(v.string());

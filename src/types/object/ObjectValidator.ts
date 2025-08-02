@@ -33,7 +33,7 @@ export class ObjectValidator<T extends object> extends Validator<T> {
                 hasError = true;
             }
             return [key, result ?? undefined];
-        })) as ErrorFields<T>;
+        }).filter(([, error]) => !!error)) as ErrorFields<T>;
 
         if (hasError || extraKeys.length) {
             if (extraKeys.length) {
