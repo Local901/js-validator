@@ -1,7 +1,7 @@
 import { BooleanValidator } from "./types/bool/BooleanValidator";
 import { IntValidator, type IntValidationOptions } from "./types/number/IntValidator";
 import { NumberValidator, type NumberValidationOptions } from "./types/number/NumberValidator";
-import { ObjectValidator, type FieldValidators } from "./types/object/ObjectValidator";
+import { ObjectValidator, type FieldValidators, type ObjectValidationOptions } from "./types/object/ObjectValidator";
 import { OptionalValidator } from "./types/util/OptionalValidator";
 import { stringValidator, type StringValidationOptions } from "./types/string/StringValidator";
 import { Validator } from "./Validator";
@@ -38,8 +38,8 @@ export class v {
     public static enum<T extends EnumLike>(enumInstance: T): Validator<T[keyof T]> {
         return new EnumValidator(enumInstance);
     }
-    public static object<T extends object>(fields: FieldValidators<T>): Validator<T> {
-        return new ObjectValidator(fields);
+    public static object<T extends object>(fields: FieldValidators<T>, options?: ObjectValidationOptions): Validator<T> {
+        return new ObjectValidator(fields, options);
     }
     public static record<T extends RecordType>(field: RecordTypeValidator<T>): Validator<T> {
         return new RecordValidator(field);

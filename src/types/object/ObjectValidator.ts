@@ -6,10 +6,19 @@ export type FieldValidators<T extends object> = {
     [K in keyof T]-?: Validator<T[K]>;
 }
 
+export type ObjectValidationOptions = {
+    /**
+     * Are additional properties allowed
+     *
+     * @default false
+     */
+    additionalProperties?: boolean;
+}
+
 export class ObjectValidator<T extends object> extends Validator<T> {
     public override type = "object";
 
-    public constructor(public readonly fields: FieldValidators<T>) {
+    public constructor(public readonly fields: FieldValidators<T>, private readonly options: ObjectValidationOptions = {}) {
         super();
     }
 
@@ -19,11 +28,6 @@ export class ObjectValidator<T extends object> extends Validator<T> {
         if (typeof input !== "object" || input === null) {
             return this.createError(ErrorType.INCORRECT_TYPE, "Has to be an object.");
         }
-
-        // Check for excess keys.
-        const fieldKeys = Object.keys(this.fields);
-        const inputKeys = Object.keys(input);
-        const extraKeys = inputKeys.filter((k) => !fieldKeys.includes(k));
     
         // Check field types
         let hasError = false;
@@ -35,7 +39,12 @@ export class ObjectValidator<T extends object> extends Validator<T> {
             return [key, result ?? undefined];
         }).filter(([, error]) => !!error)) as ErrorFields<T>;
 
-        if (hasError || extraKeys.length) {
+        // Check for excess keys.
+        if (!this.options.additionalProperties) {
+            const fieldKeys = Object.keys(this.fields);
+            const inputKeys = Object.keys(input);
+            const extraKeys = inputKeys.filter((k) => !fieldKeys.includes(k));
+
             if (extraKeys.length) {
                 return this.createError(
                     ErrorType.UNKNOWN_FIELD,
@@ -45,6 +54,9 @@ export class ObjectValidator<T extends object> extends Validator<T> {
                         : undefined,
                 );
             }
+        }
+
+        if (hasError) {
             return this.createError(ErrorType.INCORRECT_TYPE, "One or more fields are incorrect.", fields);
         }
         return null;
