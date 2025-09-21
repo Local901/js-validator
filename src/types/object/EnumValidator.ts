@@ -23,4 +23,11 @@ export class EnumValidator<T extends EnumLike | unknown[]> extends Validator<T[k
 
         return null;
     }
+
+    /** @inheritdoc */
+    protected override config(): Omit<Record<string, unknown>, "type"> {
+        return {
+            enum: this.enumValues,
+        };
+    }
 }

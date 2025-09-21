@@ -49,4 +49,23 @@ export abstract class Validator<T = unknown> {
     public validateResult(_input: unknown, result: ValidationError<T> | null): _input is T {
         return !result;
     }
+
+    /**
+     * protected config.
+     *
+     * @returns Record of extra configuration.
+     */
+    protected abstract config(): Omit<Record<string, unknown>, "type">;
+
+    /**
+     * Get the configuration of the validator.
+     *
+     * @returns Validator config.
+     */
+    public getConfig(): { type: string } & Record<string, unknown> {
+        return {
+            type: this.type,
+            ...this.config(),
+        };
+    }
 }

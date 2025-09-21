@@ -61,4 +61,15 @@ export class ObjectValidator<T extends object> extends Validator<T> {
         }
         return null;
     }
+
+    /** @inheritdoc */
+    protected override config(): Omit<Record<string, unknown>, "type"> {
+        return {
+            ...this.options,
+            properties: Object.fromEntries(
+                Object.entries<Validator>(this.fields)
+                    .map(([key, validator]) => [key, validator?.getConfig()])
+            ),
+        };
+    }
 }

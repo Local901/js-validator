@@ -44,4 +44,11 @@ export class TupleValidator<T extends [...unknown[]]> extends Validator<T> {
 
         return null;
     }
+
+    /** @inheritdoc */
+    protected override config(): Omit<Record<string, unknown>, "type"> {
+        return {
+            items: this.validators.map((validator) => validator.getConfig()),
+        };
+    }
 }

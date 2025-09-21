@@ -24,4 +24,10 @@ export class OrValidator<T> extends Validator<T> {
         return this.createError(ErrorType.INCORRECT_TYPE, "Has to match at least one of the types.", errors);
     }
     
+    /** @inheritdoc */
+    protected override config(): Omit<Record<string, unknown>, "type"> {
+        return {
+            items: this.validators.map((validator) => validator.getConfig()),
+        };
+    }
 }

@@ -37,4 +37,11 @@ export class RecordValidator<T extends Record<string | number | symbol, unknown>
 
         return null;
     }
+
+    /** @inheritdoc */
+    protected override config(): Omit<Record<string, unknown>, "type"> {
+        return {
+            items: this.field.getConfig(),
+        };
+    }
 }

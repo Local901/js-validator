@@ -54,4 +54,9 @@ export class InstanceofValidator<T> extends Validator<T> {
 
         return null;
     }
+
+    /** @inheritdoc */
+    protected override config(): Omit<Record<string, unknown>, "type"> {
+        return {};
+    }
 }

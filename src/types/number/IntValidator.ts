@@ -34,4 +34,9 @@ export class IntValidator extends Validator<number> {
         }
         return null;
     }
+
+    /** @inheritdoc */
+    protected override config(): Omit<Record<string, unknown>, "type"> {
+        return { ...this.options };
+    }
 }

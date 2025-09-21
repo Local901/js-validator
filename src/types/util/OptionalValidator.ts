@@ -26,4 +26,12 @@ export class OptionalValidator<T> extends Validator<T> {
         }
         return this.child.validateReturn(input);
     }
+
+    /** @inheritdoc */
+    protected override config(): Omit<Record<string, unknown>, "type"> {
+        return {
+            ...this.child.getConfig(),
+            optional: true,
+        };
+    }
 }

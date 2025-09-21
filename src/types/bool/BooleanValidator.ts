@@ -14,4 +14,9 @@ export class BooleanValidator extends Validator<boolean> {
         }
         return null;
     }
+
+    /** @inheritdoc */
+    protected override config(): Omit<Record<string, unknown>, "type"> {
+        return {};
+    }
 }
