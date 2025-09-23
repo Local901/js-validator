@@ -1,6 +1,6 @@
 {
   "name": "@local901/validator",
-  "version": "0.2.12",
+  "version": "0.2.13",
   "description": "Type validator for javascript and typescript",
   "main": "index.js",
   "scripts": {
