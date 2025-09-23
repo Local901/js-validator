@@ -1,6 +1,6 @@
 import { ErrorType } from "../../errors/ErrorType";
 import type { ErrorFields, ValidationError } from "../../errors/ValidationError";
-import { Validator } from "../../Validator";
+import { Validator, type ValidatorConfig } from "../../Validator";
 
 export type TupleValidators<T extends [...unknown[]]> =  T extends [infer ITEM, ...infer ARR]
     ? [Validator<ITEM>, ...ARR extends never[] ? [] : TupleValidators<ARR>]
@@ -46,7 +46,7 @@ export class TupleValidator<T extends [...unknown[]]> extends Validator<T> {
     }
 
     /** @inheritdoc */
-    protected override config(): Omit<Record<string, unknown>, "type"> {
+    protected override config(): Omit<ValidatorConfig, "type"> {
         return {
             items: this.validators.map((validator) => validator.getConfig()),
         };

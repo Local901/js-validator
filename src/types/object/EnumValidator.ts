@@ -1,6 +1,6 @@
 import { ErrorType } from "../../errors/ErrorType";
 import type { ValidationError } from "../../errors/ValidationError";
-import { Validator } from "../../Validator";
+import { Validator, type ValidatorConfig } from "../../Validator";
 
 export type EnumValue = string | number;
 export type EnumLike = Readonly<Record<string, EnumValue>>
@@ -25,7 +25,7 @@ export class EnumValidator<T extends EnumLike | unknown[]> extends Validator<T[k
     }
 
     /** @inheritdoc */
-    protected override config(): Omit<Record<string, unknown>, "type"> {
+    protected override config(): Omit<ValidatorConfig, "type"> {
         return {
             enum: this.enumValues,
         };

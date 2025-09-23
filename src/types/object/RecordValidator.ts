@@ -1,6 +1,6 @@
 import { ErrorType } from "../../errors/ErrorType";
 import type { ErrorFields, ValidationError } from "../../errors/ValidationError";
-import { Validator } from "../../Validator";
+import { Validator, type ValidatorConfig } from "../../Validator";
 
 export type RecordType<T = unknown> = Record<string | number | symbol, T>;
 
@@ -39,7 +39,7 @@ export class RecordValidator<T extends Record<string | number | symbol, unknown>
     }
 
     /** @inheritdoc */
-    protected override config(): Omit<Record<string, unknown>, "type"> {
+    protected override config(): Omit<ValidatorConfig, "type"> {
         return {
             items: this.field.getConfig(),
         };

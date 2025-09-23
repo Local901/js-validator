@@ -1,6 +1,6 @@
 import { ErrorType } from "../../errors/ErrorType";
 import { ValidationError } from "../../errors/ValidationError";
-import { Validator } from "../../Validator";
+import { Validator, type ValidatorConfig } from "../../Validator";
 
 export interface IntValidationOptions {
     /** Minimum value of the int. */
@@ -36,7 +36,7 @@ export class IntValidator extends Validator<number> {
     }
 
     /** @inheritdoc */
-    protected override config(): Omit<Record<string, unknown>, "type"> {
+    protected override config(): Omit<ValidatorConfig, "type"> {
         return { ...this.options };
     }
 }

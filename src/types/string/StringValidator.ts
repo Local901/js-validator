@@ -1,6 +1,6 @@
 import { ErrorType } from "../../errors/ErrorType";
 import { ValidationError } from "../../errors/ValidationError";
-import { Validator } from "../../Validator";
+import { Validator, type ValidatorConfig } from "../../Validator";
 
 export interface StringValidationOptions {
     /** Minimum length of the string. */
@@ -60,7 +60,7 @@ export class stringValidator<T extends string = string> extends Validator<T> {
     }
 
     /** @inheritdoc */
-    protected override config(): Omit<Record<string, unknown>, "type"> {
+    protected override config(): Omit<ValidatorConfig, "type"> {
         return { ...this.options };
     }
 }

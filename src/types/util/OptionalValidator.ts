@@ -1,6 +1,6 @@
 import { ErrorType } from "../../errors/ErrorType";
 import type { ValidationError } from "../../errors/ValidationError";
-import { Validator } from "../../Validator";
+import { Validator, type ValidatorConfig } from "../../Validator";
 
 export interface OptionalValidatorOptions {
     only?: "undefined" | "null";
@@ -28,7 +28,7 @@ export class OptionalValidator<T> extends Validator<T> {
     }
 
     /** @inheritdoc */
-    protected override config(): Omit<Record<string, unknown>, "type"> {
+    protected override config(): Omit<ValidatorConfig, "type"> {
         return {
             ...this.child.getConfig(),
             optional: true,

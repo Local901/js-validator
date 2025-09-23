@@ -1,6 +1,6 @@
 import { ErrorType } from "../../errors/ErrorType";
 import type { ErrorFields, ValidationError } from "../../errors/ValidationError";
-import { Validator } from "../../Validator";
+import { Validator, type ValidatorConfig } from "../../Validator";
 
 export interface ArrayValidatorOptions {
     /** Minimum length of the array. */
@@ -53,7 +53,7 @@ export class ArrayValidator<T> extends Validator<T[]> {
     }
 
     /** @inheritdoc */
-    protected override config(): Omit<Record<string, unknown>, "type"> {
+    protected override config(): Omit<ValidatorConfig, "type"> {
         return {
             ...this.options,
             items: this.item.getConfig(),

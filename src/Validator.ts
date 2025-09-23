@@ -1,6 +1,25 @@
 import type { ErrorValue } from "./errors/ErrorType";
 import { ErrorFields, ValidationError } from "./errors/ValidationError";
 
+export interface ValidatorConfig {
+    type: string;
+    optional?: boolean;
+
+    items?: ValidatorConfig | ValidatorConfig[];
+
+    properties?: Record<string, ValidatorConfig | undefined>;
+    additionalProperties?: boolean;
+
+    min?: number;
+    max?: number;
+    minExclusive?: boolean;
+    maxExclusive?: boolean;
+
+    regex?: RegExp | string;
+
+    enum?: unknown[];
+}
+
 export abstract class Validator<T = unknown> {
     public abstract type: string;
 
@@ -55,14 +74,14 @@ export abstract class Validator<T = unknown> {
      *
      * @returns Record of extra configuration.
      */
-    protected abstract config(): Omit<Record<string, unknown>, "type">;
+    protected abstract config(): Omit<ValidatorConfig, "type">;
 
     /**
      * Get the configuration of the validator.
      *
      * @returns Validator config.
      */
-    public getConfig(): { type: string } & Record<string, unknown> {
+    public getConfig(): ValidatorConfig {
         return {
             type: this.type,
             ...this.config(),

@@ -1,5 +1,5 @@
 import type { ValidationError } from "../../errors/ValidationError";
-import { Validator } from "../../Validator";
+import { Validator, type ValidatorConfig } from "../../Validator";
 
 export class AnyValidator<T> extends Validator<T> {
     public override type = "any";
@@ -10,7 +10,7 @@ export class AnyValidator<T> extends Validator<T> {
     }
 
     /** @inheritdoc */
-    protected override config(): Omit<Record<string, unknown>, "type"> {
+    protected override config(): Omit<ValidatorConfig, "type"> {
         return {};
     }
 }
