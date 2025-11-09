@@ -14,7 +14,7 @@ export class ArrayValidator<T> extends Validator<T[]> {
 
     public constructor(
         public readonly item: Validator<T>,
-         private readonly options: ArrayValidatorOptions = {},
+        private readonly options: ArrayValidatorOptions = {},
     ) {
         super();
     }

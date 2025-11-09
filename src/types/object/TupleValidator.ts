@@ -1,5 +1,5 @@
 import { ErrorType } from "../../errors/ErrorType";
-import type { ErrorFields, ValidationError } from "../../errors/ValidationError";
+import type { ValidationError } from "../../errors/ValidationError";
 import { Validator, type ValidatorConfig } from "../../Validator";
 
 export type TupleValidators<T extends [...unknown[]]> =  T extends [infer ITEM, ...infer ARR]
@@ -31,13 +31,13 @@ export class TupleValidator<T extends [...unknown[]]> extends Validator<T> {
 
         // Check items
         let hasError = false;
-        const fields = this.validators.map((validator, index) => {
+        const fields = Object.fromEntries(this.validators.map((validator, index) => {
             const result = validator.validateReturn(input[index]);
             if (result) {
                 hasError = true;
             }
-            return result;
-        }) as ErrorFields<T>;
+            return [index, result];
+        }).filter(([, v]) => !!v));
         if (hasError) {
             return this.createError(ErrorType.INCORRECT_TYPE, "One or more items are incorrect.", fields);
         }
