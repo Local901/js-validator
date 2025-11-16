@@ -3,24 +3,24 @@ import type { ErrorValue } from "./ErrorType";
 export type ErrorFields<T> = (
     T extends object
         ? T extends ReadonlyArray<infer I>
-            ? Record<number, ValidationError<I>>
-            : { [K in keyof T]: ValidationError<T[K]> | undefined }
+            ? Partial<Record<number, ValidationError<I>>>
+            : Partial<{ [K in keyof T]: ValidationError<T[K]> }>
         : never
-) | Record<number, ValidationError<T>>;
+) | Partial<Record<number, ValidationError<T>>>;
 
 export type ErrorJsonFields<T> = (
     T extends object
         ? T extends ReadonlyArray<infer I>
-            ? Record<number, ValidationJson<I>>
-            : { [K in keyof T]: ValidationJson<T[K]> | undefined }
+            ? Partial<Record<number, ValidationJson<I>>>
+            : Partial<{ [K in keyof T]: ValidationJson<T[K]> }>
         : never
-) | Record<number, ValidationJson<T>>;
+) | Partial<Record<number, ValidationJson<T>>>;
 
 export type ValidationJson<T> = {
     type: string,
     error: ErrorValue,
     message: string,
-    fields?: Record<string | number, ErrorJsonFields<T>>,
+    fields?: Partial<Record<string | number, ErrorJsonFields<T>>>,
 }
 
 export class ValidationError<
@@ -45,7 +45,7 @@ export class ValidationError<
         let fields: undefined | ErrorJsonFields<T>;
 
         if (this.fields) {
-            fields = Object.fromEntries(Object.entries(this.fields).map(([key, error]) => [key, error.toJson()]));
+            fields = Object.fromEntries(Object.entries(this.fields).map(([key, error]) => [key, error?.toJson()]));
         }
 
         return {
