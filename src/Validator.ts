@@ -50,7 +50,7 @@ export abstract class Validator<T = unknown> {
      * @param input Input value to validate.
      * @throws ValidationError When input is invalid.
      */
-    public validateOrThrow(input: unknown): asserts input is T {
+    public validateOrThrow<TYPE extends T = T>(input: unknown): asserts input is TYPE {
         const response = this.validateReturn(input);
         if (response) {
             throw response;

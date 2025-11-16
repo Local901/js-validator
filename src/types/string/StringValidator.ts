@@ -10,7 +10,7 @@ export interface StringValidationOptions {
     /** The regex the value has to match. */
     regex?: RegExp | string;
     /** Allowed values. (Will ignore all other options.) */
-    enum?: string[];
+    enum?: readonly string[];
 }
 
 export class stringValidator<T extends string = string> extends Validator<T> {
@@ -61,6 +61,9 @@ export class stringValidator<T extends string = string> extends Validator<T> {
 
     /** @inheritdoc */
     protected override config(): Omit<ValidatorConfig, "type"> {
-        return { ...this.options };
+        return {
+            ...this.options,
+            enum: this.options.enum ? [...this.options.enum] : undefined,
+        };
     }
 }
